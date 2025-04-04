@@ -2,6 +2,8 @@
 
 **tecBamin** is a modern Arabic blog built with **Flask** that focuses on publishing high-quality, categorized articles in technology, science, reviews, and more — all through a clean, responsive, and fast-loading design.
 
+---
+
 ## 🚀 Features
 
 - 📰 Article publishing system with categories and tags  
@@ -17,16 +19,20 @@
 - 🧠 SEO-friendly metadata and OG tags  
 - 🛠️ External Ads loader from JSON file (configurable)
 
+---
+
 ## 🧑‍💻 Tech Stack
 
-- **Backend**: Python (Flask)
+- **Backend**: Python (Flask)  
 - **Frontend**: HTML5, CSS3, Bootstrap 5  
 - **Database**: SQLite (for development)  
 - **Authentication**: Session-based admin panel  
 - **Templating**: Jinja2  
 - **ORM**: SQLAlchemy with Alembic for migrations  
 
-## 🔧 Getting Started
+---
+
+## 📂 Project Structure
 
 tecbamin/
 │
@@ -44,7 +50,12 @@ tecbamin/
 └── run.py                  # Main application entry point
 
 
-To run tecBamin locally:
+
+---
+
+## 🔧 Getting Started
+
+To run **tecBamin** locally:
 
 ```bash
 git clone https://github.com/ibrahim-shoil/tecbamin.git
