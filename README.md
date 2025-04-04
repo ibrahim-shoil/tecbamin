@@ -28,6 +28,22 @@
 
 ## 🔧 Getting Started
 
+tecbamin/
+│
+├── app/                    # Main Flask app
+│   ├── templates/          # HTML templates (Jinja2)
+│   ├── static/             # CSS, images, uploads
+│   ├── routes.py           # Flask routes
+│   ├── models.py           # SQLAlchemy models
+│   ├── forms.py            # WTForms
+│   └── utils.py            # Utility functions
+│
+├── migrations/             # Alembic migration files
+├── instance/tecBamin.db    # SQLite DB (excluded from Git)
+├── requirements.txt        # Python dependencies
+└── run.py                  # Main application entry point
+
+
 To run tecBamin locally:
 
 ```bash
