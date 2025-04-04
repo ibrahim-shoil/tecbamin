@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}500 - خطأ في الخادم{% endblock %}
+
+{% block extra_styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/error_pages.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="error-container text-center">
+  <div class="error-box">
+    <i class="bi bi-bug-fill display-1 text-danger mb-3"></i>
+    <h1 class="error-code">500</h1>
+    <h3 class="error-title">حدث خطأ في الخادم</h3>
+    <p class="error-message">حدث خطأ غير متوقع أثناء تنفيذ العملية. نأسف للإزعاج.</p>
+    <a href="{{ url_for('main.home') }}" class="btn btn-outline-primary mt-3">
+      العودة إلى الصفحة الرئيسية
+    </a>
+  </div>
+</div>
+{% endblock %}

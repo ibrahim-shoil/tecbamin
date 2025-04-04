@@ -1,0 +1,38 @@
+/* ✅ إعلان داخل المقال */
+.in-article-ad {
+  margin: 2rem 0;
+  text-align: center;
+  }
+  .in-article-ad img {
+  max-width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  }
+  /* ✅ إعلان تحت جدول المحتوى */
+  .ad-below-toc {
+  padding-top: 1rem;
+  text-align: center;
+  }
+  .ad-below-toc img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  }
+  /* ✅ تحسين عام لكل مكان فيه .ad-placeholder */
+  .ad-placeholder {
+  margin: 1rem 0;
+  }
+  /* ✅ نسخة خفيفة من إعلان جانبي لو حبيت ترجعله */
+  .ad-sidebar img {
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 0.4rem;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  }

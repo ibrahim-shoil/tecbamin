@@ -1,0 +1,48 @@
+# ==============================
+# ✅ robots.txt for tecbamin.com
+# يساعد محركات البحث على فهم ما يجب فهرسته وما يجب تجاهله
+# ==============================
+
+# 🔄 ينطبق على جميع محركات البحث (Google, Bing, وغيرها)
+User-agent: *
+
+# ============================
+# ❌ روابط لوحة التحكم والإدارة (ممنوعة)
+# ============================
+Disallow: /admin-panel-38tmujf
+Disallow: /new-article-93kfjq
+Disallow: /edit-article
+Disallow: /delete-article
+Disallow: /delete_all_articles_secure
+Disallow: /delete_all_comments_secure
+Disallow: /article-comments-secure
+Disallow: /approve-comment
+Disallow: /reply-comment
+Disallow: /upload_image
+Disallow: /logout
+
+# ============================
+# ❌ روابط داخلية مخفية أو للاختبار
+# ============================
+Disallow: /racJu4-tazpyp-mefqyx
+Disallow: /test500
+Disallow: /hidden-unpublished-articles
+
+# ============================
+# ✅ السماح لفهرسة المحتوى العام
+# ============================
+Allow: /
+Allow: /article/
+Allow: /category/
+Allow: /search
+Allow: /tag/
+Allow: /privacy-policy
+Allow: /contact
+Allow: /about
+Allow: /sitemap.xml
+
+# ============================
+# 🗺️ رابط خريطة الموقع (Sitemap)
+# يساعد Google على استكشاف كل المقالات والتصنيفات
+# ============================
+Sitemap: https://tecbamin.com/sitemap.xml

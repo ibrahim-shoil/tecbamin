@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+{% block title %}الرئيسية - tecBamin{% endblock %}
+{% block content %}
+<h2 class="section-title text-center mb-4">📰 أحدث المقالات</h2>
+{% if articles_with_comments %}
+<div class="container">
+  <div class="row g-4">
+    {% for item in articles_with_comments %}
+    {% set article = item.article %}
+    {% set comment_count = item.comment_count %}
+    <div class="col-md-6 col-lg-4">
+      <div class="article-card h-100 border rounded shadow-sm">
+        <div class="card-img-top position-relative" style="height: 170px; overflow: hidden;">
+          {% if article.image_path %}
+          {% if article.image_path.startswith('http') %}
+          <img src="{{ article.image_path }}" alt="صورة المقال" class="w-100 h-100 object-fit-cover" loading="lazy">
+          {% else %}
+          <img src="{{ url_for('static', filename='uploads/' ~ article.image_path) }}" alt="صورة المقال" class="w-100 h-100 object-fit-cover" loading="lazy">
+          {% endif %}
+          {% else %}
+          <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center text-muted" style="font-size: 0.9rem;">
+            <i class="bi bi-image fs-2 me-2"></i> لا توجد صورة
+          </div>
+          {% endif %}
+        </div>
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge bg-primary">{{ article.category }}</span>
+            <small class="text-muted">
+            <i class="fa fa-eye"></i> {{ article.views }}
+            &nbsp;|&nbsp;
+            <i class="fa fa-comments"></i> {{ comment_count }}
+            </small>
+          </div>
+          <h5 class="card-title">
+            <a href="{{ url_for('main.article_detail', slug=article.slug) }}" class="article-link">
+            {{ article.title }}
+            </a>
+          </h5>
+          <p class="card-text small mt-2">
+            {{ article.content[:100]|striptags }}{% if article.content|length > 100 %}...{% endif %}
+          </p>
+          <div class="mt-auto">
+            <small class="text-muted"><i class="fa fa-clock"></i> {{ article.date_posted|to_egypt_time }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% if pagination.pages > 1 %}
+  <div class="pagination-container mt-4">
+    <ul class="pagination justify-content-center">
+      {% if pagination.has_prev %}
+      <li class="page-item">
+        <a class="page-link" href="{{ url_for('main.home', page=pagination.prev_num) }}">السابق</a>
+      </li>
+      {% endif %}
+      {% for p in pagination.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+      {% if p %}
+      <li class="page-item {% if p == pagination.page %}active{% endif %}">
+        <a class="page-link" href="{{ url_for('main.home', page=p) }}">{{ p }}</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled"><span class="page-link">…</span></li>
+      {% endif %}
+      {% endfor %}
+      {% if pagination.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="{{ url_for('main.home', page=pagination.next_num) }}">التالي</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+{% else %}
+<p class="text-muted text-center">لا توجد مقالات حالياً</p>
+{% endif %}
+{% endblock %}

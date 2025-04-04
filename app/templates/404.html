@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}404 - الصفحة غير موجودة{% endblock %}
+
+{% block extra_styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/error_pages.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="error-container text-center">
+  <div class="error-box">
+    <i class="bi bi-exclamation-triangle-fill display-1 text-danger mb-3"></i>
+    <h1 class="error-code">404</h1>
+    <h3 class="error-title">الصفحة غير موجودة</h3>
+    <p class="error-message">يبدو أنك وصلت إلى صفحة غير موجودة أو تم حذفها.</p>
+    <a href="{{ url_for('main.home') }}" class="btn btn-outline-primary mt-3">
+      العودة إلى الصفحة الرئيسية
+    </a>
+  </div>
+</div>
+{% endblock %}

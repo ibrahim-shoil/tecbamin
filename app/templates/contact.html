@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}تواصل معنا - tecBamin{% endblock %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/static_pages.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+{% endblock %}
+{% block content %}
+<div class="form-wrapper static-page contact-form">
+  <h1 class="mb-4">تواصل معنا</h1>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show text-center fw-bold" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <form method="POST" class="contact-us-form">
+    {{ form.hidden_tag() }}
+    <div class="form-group mb-3">
+      {{ form.name.label(class="form-label") }}
+      {{ form.name(class="form-control", placeholder="اسمك بالكامل") }}
+    </div>
+    <div class="form-group mb-3">
+      {{ form.email.label(class="form-label") }}
+      {{ form.email(class="form-control", placeholder="example@example.com") }}
+    </div>
+    <div class="form-group mb-4">
+      {{ form.message.label(class="form-label") }}
+      {{ form.message(class="form-control", placeholder="اكتب رسالتك هنا...", rows="6") }}
+    </div>
+    <button type="submit" class="btn btn-primary px-4">إرسال</button>
+  </form>
+</div>
+{% endblock %}

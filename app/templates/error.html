@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}حدث خطأ - tecBamin{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <h1 class="error-title">
+        <i class="fas fa-exclamation-triangle"></i> عذرًا!
+    </h1>
+    <p class="error-message">يبدو أن الصفحة التي تبحث عنها غير موجودة أو حدث خطأ ما.</p>
+    <a href="{{ url_for('main.home') }}" class="back-btn">
+        <i class="fas fa-home"></i> العودة إلى الصفحة الرئيسية
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/article_comments.css') }}">
+{% endblock %}
+{% block title %}تعليقات - {{ article.title }}{% endblock %}
+{% block content %}
+<div class="container article-comments-container py-4">
+  <h2 class="section-title text-center mb-4">
+    <i class="fas fa-comments me-2"></i> التعليقات على: <span class="text-primary">{{ article.title }}</span>
+  </h2>
+  {% if comments %}
+  <div class="table-responsive rounded shadow-sm">
+    <table class="table table-striped table-bordered align-middle text-center comments-table">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">الاسم</th>
+          <th scope="col">التعليق</th>
+          <th scope="col">التاريخ</th>
+          <th scope="col">الإجراء</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment in comments %}
+        <tr>
+          <td>
+            {% if comment.parent_id %}
+            <span class="text-muted small">↳ رد</span><br>
+            {% endif %}
+            <span class="fw-bold">{{ comment.name }}</span>
+          </td>
+          <td class="text-start">
+            <div class="comment-content">{{ comment.content[:100] }}{% if comment.content|length > 100 %}...{% endif %}</div>
+            {% if not comment.is_approved %}
+            <span class="badge bg-warning text-dark mt-1">قيد المراجعة</span>
+            {% endif %}
+          </td>
+          <td>
+            <small class="text-muted">{{ comment.date.strftime('%Y-%m-%d %H:%M') }}</small>
+          </td>
+          <td>
+            <div class="d-flex justify-content-center gap-2">
+              {% if not comment.is_approved %}
+              <form method="POST" action="{{ url_for('main.approve_comment', comment_id=comment.id) }}">
+                <button type="submit" class="btn btn-sm btn-success">موافقة ✅</button>
+              </form>
+              {% endif %}
+              <form method="POST" action="{{ url_for('main.delete_comment', comment_id=comment.id) }}" class="delete-form">
+                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('هل تريد حذف هذا التعليق؟');">
+                <i class="fas fa-trash-alt"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="alert alert-info text-center mt-4">
+    لا توجد تعليقات حالياً على هذا المقال.
+  </div>
+  {% endif %}
+  <div class="mt-4 text-end">
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-primary">
+    <i class="fas fa-arrow-left"></i> رجوع للوحة التحكم
+    </a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% for comment in comments %}
+<tr>
+  <td>{{ comment.name }}</td>
+  <td>{{ comment.content[:50] }}{% if comment.content|length > 50 %}...{% endif %}</td>
+  <td>
+    {% if comment.article %}
+      <a href="{{ url_for('main.article_detail', slug=comment.article.slug) }}" target="_blank">
+        {{ comment.article.title[:40] }}{% if comment.article.title|length > 40 %}...{% endif %}
+      </a>
+    {% else %}
+      <span class="text-muted">مقال محذوف</span>
+    {% endif %}
+  </td>
+  <td>{{ comment.date.strftime('%Y-%m-%d %H:%M') }}</td>
+  <td>
+    {% if not comment.is_approved %}
+      <form method="POST" action="{{ url_for('main.approve_comment', comment_id=comment.id) }}" class="d-inline">
+        <button type="submit" class="btn btn-sm btn-success">✅ موافقة</button>
+      </form>
+    {% endif %}
+    <form method="POST" action="{{ url_for('main.delete_comment', comment_id=comment.id) }}" class="d-inline">
+      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('حذف التعليق؟');">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </form>
+  </td>
+</tr>
+{% endfor %}

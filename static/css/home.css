@@ -1,0 +1,98 @@
+/* ✅ تنسيق عام للبطاقات */
+.article-card {
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: box-shadow 0.3s ease;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+  }
+  .article-card:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  }
+  /* ✅ صورة المقال */
+  .article-card .card-img-top {
+  height: 170px;
+  object-fit: cover;
+  background-color: #f0f0f0;
+  width: 100%;
+  }
+  /* ✅ جسم البطاقة */
+  .article-card .card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  }
+  /* ✅ عنوان المقال */
+  .article-card .card-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  }
+  .article-card .card-title a {
+  text-decoration: none;
+  color: #007bff;
+  transition: color 0.2s ease;
+  }
+  .article-card .card-title a:hover {
+  color: #0056b3;
+  }
+  /* ✅ مقتطف المقال */
+  .article-card .card-text {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+  }
+  /* ✅ معلومات إضافية */
+  .article-card small.text-muted {
+  font-size: 0.85rem;
+  color: #888;
+  }
+  /* ✅ شارة التصنيف */
+  .article-card .badge {
+  font-size: 0.8rem;
+  padding: 0.35em 0.65em;
+  }
+  /* ✅ العنوان الرئيسي للقسم */
+  .section-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+  display: inline-block;
+  padding-bottom: 0.3rem;
+  margin-bottom: 1.5rem;
+  }
+  /* ✅ ترقيم الصفحات */
+  .pagination-container {
+  margin-top: 2rem;
+  }
+  .pagination .page-link {
+  border-radius: 0.4rem;
+  color: #007bff;
+  }
+  .pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  }
+  /* ✅ استجابة الشاشات الصغيرة */
+  @media (max-width: 768px) {
+  .article-card .card-title {
+  font-size: 1rem;
+  }
+  .article-card .card-text {
+  font-size: 0.9rem;
+  }
+  .section-title {
+  font-size: 1.4rem;
+  text-align: center;
+  }
+  .pagination-container {
+  margin-top: 1.5rem;
+  }
+  }

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+{% block title %}تسجيل الدخول - tecBamin{% endblock %}
+{% block content %}
+<div class="login-wrapper">
+  <div class="login-card">
+    <h3 class="login-title"><i class="bi bi-shield-lock-fill text-warning fs-3"> </i>تسجيل الدخول</h3>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert-message">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <form method="POST">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        <label for="username" class="form-label">
+        <i class="fa fa-user"></i> اسم المستخدم
+        </label>
+        {{ form.username(class="form-control", id="username") }}
+      </div>
+      <div class="form-group">
+        <label for="password" class="form-label">
+        <i class="fa fa-lock"></i> كلمة المرور
+        </label>
+        {{ form.password(class="form-control", id="password") }}
+      </div>
+      <div class="form-submit">
+        {{ form.submit(class="btn-submit") }}
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

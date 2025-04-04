@@ -1,0 +1,53 @@
+/* ------------------------------- */
+/* ✅ Error Pages Styles - error_pages.css */
+/* ------------------------------- */
+.error-container {
+  min-height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-family: 'Cairo', sans-serif;
+  }
+  .error-box {
+  background-color: #fff;
+  padding: 3rem 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  max-width: 500px;
+  width: 100%;
+  }
+  .error-code {
+  font-size: 5rem;
+  font-weight: 700;
+  color: #dc3545;
+  margin-bottom: 1rem;
+  }
+  .error-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+  }
+  .error-message {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  }
+  .btn-outline-primary {
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 0.4rem;
+  }
+  @media (max-width: 576px) {
+  .error-code {
+  font-size: 3.5rem;
+  }
+  .error-title {
+  font-size: 1.4rem;
+  }
+  .error-message {
+  font-size: 0.95rem;
+  }
+  }

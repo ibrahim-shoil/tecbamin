@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+{% block title %}لوحة التحكم - tecBamin{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+  {% for category, message in messages %}
+  <div class="toast align-items-center text-white bg-{{ 'success' if category == 'success' else 'danger' }} border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ message }}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+<h2 class="section-title text-center mb-4">
+  <i class="fas fa-cogs me-2"></i> لوحة التحكم
+</h2>
+<!-- ✅ زر إضافة مقال جديد -->
+<div class="text-center mb-4">
+  <a href="{{ url_for('main.new_article') }}" class="btn btn-primary">
+  <i class="fas fa-plus me-1"></i> إضافة مقال جديد
+  </a>
+</div>
+<!-- ✅ مقالات غير منشورة -->
+{% if session.get('admin') %}
+<div class="text-center mb-4">
+  <a href="{{ url_for('main.unpublished_articles') }}" class="btn btn-outline-warning">
+  <i class="fas fa-eye-slash me-1"></i> مقالات غير منشورة
+  </a>
+</div>
+{% endif %}
+<!-- ✅ البحث -->
+<form method="get" action="{{ url_for('main.dashboard') }}" class="d-flex justify-content-center mb-4">
+  <div class="input-group" style="max-width: 400px;">
+    <input type="text" name="q" class="form-control" placeholder="ابحث في المقالات..." value="{{ request.args.get('q', '') }}">
+    <button type="submit" class="btn btn-outline-primary">🔍 بحث</button>
+  </div>
+</form>
+{% if articles %}
+<div class="table-responsive">
+  <table class="table table-hover table-bordered text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>العنوان</th>
+        <th>التصنيف</th>
+        <th>الحالة</th>
+        <th>المشاهدات</th>
+        <th>التعليقات</th>
+        <th>تاريخ النشر</th>
+        <th>إجراءات</th>
+      </tr>
+    </thead>
+    <tbody id="article-table-body">
+      {% for article in articles %}
+      <tr>
+        <td>
+          <a href="{{ url_for('main.article_detail', slug=article.slug) }}" target="_blank">{{ article.title }}</a>
+        </td>
+        <td>{{ article.category }}</td>
+        <td>
+          {% if article.is_published %}
+          <span class="badge bg-success">منشور</span>
+          {% else %}
+          <span class="badge bg-danger">غير منشور</span>
+          {% endif %}
+        </td>
+        <td>{{ article.views }}</td>
+        <td>
+          <a href="{{ url_for('main.article_comments', article_id=article.id) }}" class="btn btn-sm btn-outline-primary">
+          {{ article.comments|length }} تعليق
+          </a>
+        </td>
+        <td>{{ article.date_posted|to_egypt_time }}</td>
+        <td>
+          <a href="{{ url_for('main.edit_article', article_id=article.id) }}" class="text-primary me-2">
+          <i class="fas fa-edit"></i>
+          </a>
+          <form method="POST" action="{{ url_for('main.delete_article', article_id=article.id) }}" class="d-inline delete-form" data-confirm="هل تريد حذف هذا المقال؟">
+            <button type="submit" class="btn btn-sm btn-danger">
+            <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<!-- ✅ زر عرض المزيد -->
+{% if pagination and pagination.has_next %}
+<div class="text-center mt-4" id="load-more-articles-container">
+  <button id="load-more-articles" class="btn btn-outline-secondary">
+  <i class="fas fa-angle-down"></i> عرض المزيد
+  </button>
+</div>
+{% endif %}
+<!-- ✅ زر حذف الكل -->
+<form method="POST" action="{{ url_for('main.delete_all_articles') }}" class="text-end mt-3 delete-form" data-confirm="⚠️ سيتم حذف جميع المقالات. هل أنت متأكد؟">
+  <button type="submit" class="btn btn-outline-danger">
+  <i class="fas fa-trash"></i> حذف جميع المقالات
+  </button>
+</form>
+{% else %}
+<div class="alert alert-info text-center mt-4">لا توجد مقالات حالياً.</div>
+{% endif %}
+<!-- ✅ قسم التعليقات -->
+<hr class="my-5">
+<h3 class="section-title text-center mb-4">
+  <i class="fas fa-comments me-2"></i> التعليقات
+</h3>
+<!-- زر حذف كل التعليقات -->
+<form method="POST" action="{{ url_for('main.delete_all_comments') }}" class="text-center mb-4 delete-form" data-confirm="⚠️ سيتم حذف جميع التعليقات. هل أنت متأكد؟">
+  <button type="submit" class="btn btn-outline-danger">
+  <i class="fas fa-trash-alt"></i> حذف جميع التعليقات
+  </button>
+</form>
+{% if comments and comments|length > 0 %}
+<div class="table-responsive">
+  <table class="table table-hover table-bordered text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>الاسم</th>
+        <th>التعليق</th>
+        <th>على مقال</th>
+        <th>التاريخ</th>
+        <th>إجراء</th>
+      </tr>
+    </thead>
+    <tbody id="comment-table-body">
+      {% for comment in comments %}
+      <tr>
+        <td>{{ comment.name }}</td>
+        <td>{{ comment.content[:50] }}{% if comment.content|length > 50 %}...{% endif %}</td>
+        <td>
+          <a href="{{ url_for('main.article_detail', slug=comment.article.slug) }}" target="_blank">
+          {% if comment.article %}
+          {{ comment.article.title[:40] }}{% if comment.article.title|length > 40 %}...{% endif %}
+          {% else %}
+          <span class="text-muted">مقال محذوف</span>
+          {% endif %}
+          </a>
+        </td>
+        <td>{{ comment.date.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>
+          {% if not comment.is_approved %}
+          <form method="POST" action="{{ url_for('main.approve_comment', comment_id=comment.id) }}" class="d-inline">
+            <button type="submit" class="btn btn-sm btn-success">✅ موافقة</button>
+          </form>
+          {% endif %}
+          <form method="POST" action="{{ url_for('main.delete_comment', comment_id=comment.id) }}" class="d-inline delete-form" data-confirm="هل تريد حذف هذا التعليق؟">
+            <button type="submit" class="btn btn-sm btn-danger">
+            <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- ✅ عرض المزيد من التعليقات -->
+  {% if comments_pagination and comments_pagination.has_next %}
+  <div class="text-center mt-4" id="load-more-comments-container">
+    <button id="load-more-comments" class="btn btn-outline-secondary">
+    <i class="fas fa-angle-down"></i> عرض المزيد من التعليقات
+    </button>
+  </div>
+  {% endif %}
+</div>
+{% else %}
+<div class="alert alert-info text-center mt-4">لا توجد تعليقات حالياً.</div>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // ✅ تحميل مقالات إضافية
+    let articlePage = 1;
+    const loadArticlesBtn = document.getElementById("load-more-articles");
+    
+    if (loadArticlesBtn) {
+      loadArticlesBtn.addEventListener("click", () => {
+        articlePage++;
+        fetch(`/dashboard/load_more_articles?page=${articlePage}&q={{ request.args.get('q', '') }}`, {
+          headers: { "X-Requested-With": "XMLHttpRequest" }
+        })
+        .then(res => res.json())
+        .then(data => {
+          document.querySelector("#article-table-body").insertAdjacentHTML("beforeend", data.html);
+          if (!data.has_next) {
+            loadArticlesBtn.remove(); // ✅ إخفاء الزر
+          }
+        });
+      });
+    }
+  
+    // ✅ تحميل تعليقات إضافية
+    let commentPage = 1;
+    const loadCommentsBtn = document.getElementById("load-more-comments");
+  
+    if (loadCommentsBtn) {
+      loadCommentsBtn.addEventListener("click", () => {
+        commentPage++;
+        fetch(`/dashboard/load_more_comments?comments_page=${commentPage}&q={{ request.args.get('q', '') }}`, {
+          headers: { "X-Requested-With": "XMLHttpRequest" }
+        })
+        .then(res => res.json())
+        .then(data => {
+          document.querySelector("#comment-table-body").insertAdjacentHTML("beforeend", data.html);
+          if (!data.has_next) {
+            loadCommentsBtn.remove(); // ✅ إخفاء الزر
+          }
+        });
+      });
+    }
+  
+    // ✅ تأكيد الحذف عبر مودال
+    let targetForm = null;
+    const modalEl = document.getElementById('confirmDeleteModal');
+    if (modalEl) {
+      const modal = new bootstrap.Modal(modalEl);
+      const confirmBtn = document.getElementById('confirmDeleteBtn');
+      const messageBox = document.getElementById('deleteModalMessage');
+  
+      document.querySelectorAll('form.delete-form').forEach(form => {
+        form.addEventListener('submit', e => {
+          e.preventDefault(); // منع الإرسال الفوري
+          targetForm = form;
+          messageBox.innerText = form.getAttribute('data-confirm') || "هل أنت متأكد؟";
+          modal.show();
+        });
+      });
+  
+      confirmBtn.addEventListener('click', () => {
+        if (targetForm) targetForm.submit();
+      });
+    }
+  });
+</script>
+<!-- ✅ مودال تأكيد الحذف -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">⚠️ تأكيد الحذف</h5>
+      </div>
+      <div class="modal-body fw-bold fs-5" id="deleteModalMessage">
+        هل أنت متأكد أنك تريد الحذف؟
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+/* ✅ عنوان الصفحة */
+.section-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #0d6efd;
+  border-bottom: 2px solid #0d6efd;
+  display: inline-block;
+  padding-bottom: 0.4rem;
+  margin-bottom: 2rem;
+  }
+  /* ✅ أزرار */
+  .btn-outline-warning,
+  .btn-outline-primary,
+  .btn-outline-danger {
+  font-weight: 500;
+  padding: 0.4rem 1rem;
+  border-radius: 0.4rem;
+  }
+  .btn-sm {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.85rem;
+  }
+  /* ✅ البحث في الداشبورد */
+  form.d-flex .input-group {
+  max-width: 400px;
+  width: 100%;
+  }
+  form.d-flex input[type="text"] {
+  font-size: 0.95rem;
+  }
+  /* ✅ الجداول */
+  .table {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  }
+  .table thead th {
+  background-color: #0d6efd;
+  color: #fff;
+  font-size: 0.95rem;
+  }
+  .table td,
+  .table th {
+  vertical-align: middle;
+  font-size: 0.9rem;
+  }
+  /* ✅ خلية الإجراءات */
+  .table .btn {
+  margin-inline: 0.1rem;
+  }
+  /* ✅ روابط الجدول */
+  .table a {
+  text-decoration: none;
+  color: #0d6efd;
+  }
+  .table a:hover {
+  text-decoration: underline;
+  }
+  /* ✅ عبارات عدم وجود محتوى */
+  .alert {
+  font-size: 1rem;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  }
+  /* ✅ استجابة الشاشات الصغيرة */
+  @media (max-width: 768px) {
+  .section-title {
+  font-size: 1.4rem;
+  text-align: center;
+  }
+  .table td,
+  .table th {
+  font-size: 0.85rem;
+  }
+  .btn-sm {
+  font-size: 0.8rem;
+  }
+  }

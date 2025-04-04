@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block title %}➕ إضافة مقال - tecBamin{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">➕ إضافة مقال جديد</h5>
+      <a href="{{ url_for('main.dashboard') }}" class="btn btn-light btn-sm">🔙 الرجوع للوحة التحكم</a>
+    </div>
+    <div class="card-body">
+      <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <!-- عنوان -->
+        <div class="mb-3">
+          {{ form.title.label(class="form-label") }}
+          {{ form.title(class="form-control", placeholder="اكتب عنوان المقال") }}
+        </div>
+        <!-- المحتوى -->
+        <div class="mb-3">
+          <label class="form-label">محتوى المقال</label>
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <small class="text-muted">أدخل محتوى المقال هنا</small>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('imageInput').click()">📷 إدراج صورة</button>
+          </div>
+          {{ form.content(class="form-control", rows="8", placeholder="نص المقال...") }}
+        </div>
+        <!-- التصنيف -->
+        <div class="mb-3">
+          {{ form.category.label(class="form-label") }}
+          {{ form.category(class="form-select") }}
+        </div>
+        <!-- كاتب المقال -->
+        <div class="mb-3">
+          {{ form.author.label(class="form-label") }}
+          {{ form.author(class="form-select") }}
+        </div>
+        <!-- المقالات المرتبطة -->
+        <div class="mb-3">
+          {{ form.related_articles.label(class="form-label") }}
+          {{ form.related_articles(id="related_articles", multiple=True) }}
+          <div class="form-text">اختر مقال أو أكثر لربطه بالمقال الحالي</div>
+        </div>
+        <!-- التاجز -->
+        <div class="mb-3">
+          {{ form.tags.label(class="form-label") }}
+          {{ form.tags(class="form-control", placeholder="مثال: تقنية, ذكاء اصطناعي") }}
+          <small class="form-text text-muted">افصل بين الكلمات بفاصلة</small>
+        </div>
+        <!-- خيار النشر -->
+        <div class="form-check mb-3">
+          {{ form.is_published(class="form-check-input") }}
+          {{ form.is_published.label(class="form-check-label") }}
+        </div>
+        <!-- رفع صورة -->
+        <div class="mb-3">
+          {{ form.image.label(class="form-label") }}
+          {{ form.image(class="form-control") }}
+          <small class="form-text text-muted">اختر صورة من جهازك (jpg أو png)</small>
+        </div>
+        <!-- رابط صورة خارجي -->
+        <div class="mb-3">
+          {{ form.image_url.label(class="form-label") }}
+          {{ form.image_url(class="form-control", placeholder="https://example.com/image.jpg") }}
+          <small class="form-text text-muted">أو أدخل رابط مباشر للصورة</small>
+        </div>
+        <!-- زر الحفظ -->
+        <div class="d-grid mt-4">
+          {{ form.submit(class="btn btn-success") }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- input مخفي لرفع صورة داخل المقال -->
+<input type="file" id="imageInput" accept="image/*" hidden>
+<!-- سكربت إدراج صورة داخل المحتوى -->
+<script>
+  const imageInput = document.getElementById('imageInput');
+  const contentField = document.querySelector('textarea[name="content"]');
+  
+  imageInput.addEventListener('change', async function () {
+    const file = this.files[0];
+    if (!file) return;
+  
+    const formData = new FormData();
+    formData.append('image', file);
+  
+    try {
+      const response = await fetch('/upload_image', {
+        method: 'POST',
+        body: formData
+      });
+  
+      const data = await response.json();
+  
+      if (data.success) {
+        const imgTag = `<img src="${data.url}" alt="${file.name}" style="max-width:100%; margin:10px auto; border-radius:8px; display:block;">\n`;
+        insertAtCursor(contentField, imgTag);
+      } else {
+        alert('❌ فشل رفع الصورة');
+      }
+    } catch (err) {
+      alert('حدث خطأ أثناء رفع الصورة');
+    }
+  
+    imageInput.value = '';
+  });
+  
+  function insertAtCursor(textarea, text) {
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const content = textarea.value;
+    textarea.value = content.slice(0, start) + text + content.slice(end);
+    textarea.focus();
+    textarea.selectionStart = textarea.selectionEnd = start + text.length;
+  }
+</script>
+{% endblock %}

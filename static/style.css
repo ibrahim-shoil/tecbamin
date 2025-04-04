@@ -1,0 +1,543 @@
+/* ------------------------- */
+/* ✅ تنسيقات عامة - base */
+/* ------------------------- */
+body {
+  font-family: 'Cairo', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  background-color: #fdfdfd;
+  color: #222;
+  }
+  /* ✅ شريط التنقل */
+  .navbar {
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  /* ✅ روابط النافبار */
+  .navbar .nav-link {
+  color: #000;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+  position: relative;
+  }
+  .navbar .nav-link i {
+  margin-left: 0.4rem;
+  }
+  .navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 2px;
+  width: 0;
+  background-color: transparent;
+  transition: width 0.3s ease, background-color 0.3s ease;
+  }
+  .navbar .nav-link:hover {
+  color: #2e7d32 !important;
+  }
+  .navbar .nav-link:hover::after {
+  width: 100%;
+  background-color: #2e7d32;
+  left: 0;
+  right: auto;
+  }
+  /* ✅ اللوجو */
+  .navbar-brand img {
+  max-height: 40px;
+  }
+  /* ✅ مربع البحث */
+  form.d-flex input[type="search"] {
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  min-width: 260px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  }
+  /* ✅ زر البحث */
+  .btn-outline-light {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.95rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  height: 38px;
+  border: 1px solid #ccc;
+  color: #007bff;
+  background-color: #fff;
+  }
+  /* ✅ زر الوضع */
+  #theme-toggle {
+  font-size: 0.95rem;
+  padding: 0.5rem 0.9rem;
+  height: 38px;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #007bff;
+  transition: transform 0.3s ease;
+  }
+  #theme-toggle:hover i {
+  transform: rotate(20deg);
+  }
+  /* ✅ ترتيب عناصر البحث */
+  form.d-flex {
+  align-items: center;
+  gap: 0.5rem;
+  }
+  /* ✅ استجابة الشاشات الصغيرة */
+  @media (max-width: 991.98px) {
+  .navbar .navbar-collapse {
+  padding-top: 1rem;
+  }
+  form.d-flex {
+  flex-direction: column;
+  align-items: stretch;
+  }
+  form.d-flex input[type="search"],
+  form.d-flex button,
+  #theme-toggle {
+  width: 100%;
+  }
+  form.d-flex input[type="search"] {
+  min-width: unset;
+  }
+  form.d-flex > * + * {
+  margin-top: 0.5rem;
+  }
+  }
+  /* ✅ تنسيق عام للبطاقات */
+  .article-card {
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: box-shadow 0.3s ease;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+  }
+  .article-card:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  }
+  /* ✅ تنسيق موحد للصور أو مكان الصورة */
+  .article-card .card-img-top {
+  height: 170px;
+  object-fit: cover;
+  background-color: #f0f0f0; /* في حالة مفيش صورة */
+  width: 100%;
+  }
+  /* ✅ محتوى البطاقة */
+  .article-card .card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  }
+  /* ✅ عنوان المقال */
+  .article-card .card-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  }
+  /* ✅ رابط العنوان */
+  .article-link {
+  text-decoration: none;
+  color: #007bff;
+  transition: color 0.2s ease;
+  }
+  .article-link:hover {
+  color: #0056b3;
+  }
+  /* ✅ نص المقال */
+  .article-card .card-text {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+  }
+  /* ✅ المعلومات (الزيارات، التعليقات، الوقت) */
+  .article-card small.text-muted {
+  font-size: 0.85rem;
+  color: #888;
+  }
+  /* ✅ شارة التصنيف */
+  .article-card .badge {
+  font-size: 0.8rem;
+  padding: 0.35em 0.65em;
+  }
+  /* ✅ العنوان الرئيسي للقسم */
+  .section-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+  display: inline-block;
+  padding-bottom: 0.3rem;
+  margin-bottom: 1.5rem;
+  }
+  /* ✅ ترقيم الصفحات */
+  .pagination-container {
+  margin-top: 2rem;
+  }
+  .pagination .page-link {
+  border-radius: 0.4rem;
+  color: #007bff;
+  }
+  .pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  }
+  /* ✅ استجابة الشاشات الصغيرة */
+  @media (max-width: 768px) {
+  .article-card .card-title {
+  font-size: 1rem;
+  }
+  .article-card .card-text {
+  font-size: 0.9rem;
+  }
+  .section-title {
+  font-size: 1.4rem;
+  text-align: center;
+  }
+  .pagination-container {
+  margin-top: 1.5rem;
+  }
+  }
+  /* ------------------------- */
+  /* ✅ تنسيقات صفحة التصنيف category */
+  /* ------------------------- */
+  /* ✅ العنوان الرئيسي للصفحة */
+  .section-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--bs-primary);
+  border-bottom: 2px solid #007bff;
+  display: inline-block;
+  padding-bottom: 0.3rem;
+  margin-bottom: 1.5rem;
+  }
+  @media (max-width: 576px) {
+  .section-title {
+  font-size: 1.3rem;
+  text-align: center;
+  }
+  }
+  /* ✅ تصميم بطاقة المقال */
+  .article-card {
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  }
+  .article-card .card-img-top {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  background-color: #f8f9fa;
+  }
+  .article-card .card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  }
+  .article-card .card-title a {
+  text-decoration: none;
+  color: #222;
+  font-size: 1rem;
+  font-weight: bold;
+  }
+  .article-card .card-title a:hover {
+  color: #007bff;
+  }
+  .article-card .card-text {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  }
+  .article-card small.text-muted {
+  font-size: 0.8rem;
+  color: #888;
+  }
+  /* ✅ ترقيم الصفحات */
+  .pagination-container {
+  margin-top: 2rem;
+  }
+  .pagination .page-link {
+  color: #007bff;
+  border: 1px solid #dee2e6;
+  }
+  .pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  }
+  .pagination .page-link:hover {
+  background-color: #e9ecef;
+  }
+  /* ✅ تنسيقات صفحة المقال - article.html */
+  /* ✅ تنسيق البطاقة الأساسية للمقال */
+  /* ✅ تنسيق العنوان الرئيسي للمقال */
+  .article-card h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.6;
+  color: #222;
+  }
+  /* ✅ بيانات المقال مثل التاريخ والمشاهدات */
+  .article-meta {
+  font-size: 0.9rem;
+  color: #777;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+  }
+  .article-meta i {
+  margin-left: 0.4rem;
+  color: #007bff;
+  }
+  /* ✅ محتوى المقال */
+  .article-content {
+  line-height: 1.9;
+  font-size: 1.05rem;
+  color: #333;
+  }
+  .article-content h2,
+  .article-content h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #007bff;
+  }
+  .article-content p {
+  margin-bottom: 1rem;
+  }
+  /* ✅ قسم المقالات المقترحة والمرتبطة */
+  .related-link {
+  color: #222;
+  text-decoration: none;
+  transition: color 0.3s;
+  }
+  .related-link:hover {
+  color: #007bff;
+  }
+  /* ✅ الكلمات المفتاحية */
+  .badge.bg-secondary {
+  background-color: #6c757d !important;
+  font-size: 0.85rem;
+  margin-inline-end: 0.3rem;
+  }
+  /* ✅ عرض المقالات المقترحة بشكل منظم */
+  .card-title a {
+  text-decoration: none;
+  color: #222;
+  font-weight: 600;
+  }
+  .card-title a:hover {
+  color: #007bff;
+  }
+  /* ✅ نموذج التعليق */
+  form .form-control {
+  border-radius: 0.375rem;
+  border: 1px solid #ccc;
+  }
+  form .btn-primary {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  }
+  /* ✅ التعليقات */
+  #comments-container .border {
+  background-color: #f8f9fa;
+  }
+  /* ✅ روابط الفهرس */
+  .toc-link {
+  font-size: 0.95rem;
+  color: #007bff;
+  text-decoration: none;
+  }
+  .toc-link:hover {
+  text-decoration: underline;
+  }
+  /* ✅ صندوق الفهرس */
+  .toc-wrapper .card {
+  border: 1px solid #eee;
+  }
+  /* ✅ استجابة الشاشات الصغيرة */
+  @media (max-width: 767.98px) {
+  .article-card {
+  padding: 1rem;
+  }
+  .article-card h1 {
+  font-size: 1.6rem;
+  }
+  .article-content {
+  font-size: 1rem;
+  }
+  .related-link {
+  font-size: 0.95rem;
+  }
+  }
+  /* ------------------------- */
+  /* ✅ تنسيقات صفحة تعليقات المقال - article_comments */
+  /* ------------------------- */
+  .article-comments-container {
+  background-color: #fff;
+  padding: 2rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  .article-comments-container h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 1.5rem;
+  }
+  .table.comments-table {
+  background-color: #fdfdfd;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  }
+  .table.comments-table th {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: 600;
+  }
+  .table.comments-table td {
+  font-size: 0.95rem;
+  color: #333;
+  vertical-align: middle;
+  }
+  .table.comments-table .btn-sm {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.85rem;
+  }
+  .table.comments-table .badge {
+  font-size: 0.75rem;
+  padding: 0.35em 0.6em;
+  }
+  .comments-table .delete-form button {
+  border: none;
+  }
+  @media (max-width: 576px) {
+  .table.comments-table {
+  font-size: 0.85rem;
+  }
+  .article-comments-container h2 {
+  font-size: 1.3rem;
+  }
+  }
+  /* ✅ شارة المشرف */
+  .admin-badge {
+  background-color: #ffc107;
+  color: #000;
+  font-weight: bold;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+  margin-right: 0.4rem;
+  display: inline-block;
+  }
+  .admin-badge i {
+  margin-left: 3px;
+  }
+  /* ✅ شارة المستخدم العادي */
+  .user-badge {
+  background-color: #dee2e6;
+  color: #333;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+  margin-right: 0.4rem;
+  display: inline-block;
+  }
+  .user-badge i {
+  margin-left: 3px;
+  }
+  .admin-badge {
+  background-color: #ffc107;
+  color: #000;
+  font-weight: bold;
+  font-size: 0.75rem;
+  padding: 0.25em 0.6em;
+  border-radius: 0.3rem;
+  }
+  .user-badge {
+  background-color: #dee2e6;
+  color: #444;
+  font-size: 0.75rem;
+  padding: 0.25em 0.6em;
+  border-radius: 0.3rem;
+  }
+  .comment-box {
+  background-color: #f8f9fa;
+  }
+  .reply-box {
+  background-color: #ffffff;
+  }
+  .admin-badge {
+  background-color: #ffc107;
+  color: #000;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  }
+  .user-badge {
+  background-color: #dee2e6;
+  color: #333;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  border-radius: 0.3rem;
+  font-weight: 500;
+  }
+  .admin-badge {
+  background-color: #ffc107;
+  color: #000;
+  font-weight: bold;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.4rem;
+  font-size: 0.85rem;
+  }
+  .user-badge {
+  background-color: #dee2e6;
+  color: #333;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.4rem;
+  font-size: 0.85rem;
+  }
+  /* ✅ تنسيق موحد لعنصر التعليق بالكامل */
+  .comment-box, .reply-box {
+  direction: rtl;
+  text-align: right;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  }
+  /* ✅ صف البيانات (الاسم + البادج + التاريخ) */
+  .comment-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* من اليمين لليسار */
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.3rem;
+  }
+  /* ✅ ترتيب الاسم والبادج */
+  .comment-meta .name {
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #222;
+  }
+  .comment-meta small {
+  font-size: 0.8rem;
+  color: #777;
+  }

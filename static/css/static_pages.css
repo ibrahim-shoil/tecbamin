@@ -1,0 +1,49 @@
+/* ✅ تنسيقات عامة للصفحات الثابتة */
+.static-page {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Rubik', sans-serif;
+  line-height: 1.8;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .static-page:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.2);
+  }
+  .static-page h1,
+  .static-page h2 {
+  color: #0d6efd;
+  font-weight: bold;
+  margin-bottom: 20px;
+  }
+  .static-page p {
+  font-size: 1.1rem;
+  color: #333;
+  }
+  /* ✅ تنسيقات نموذج التواصل */
+  .contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .contact-form:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.2);
+  }
+  .contact-form .form-label {
+  font-weight: 500;
+  }
+  .contact-form .form-control,
+  .contact-form textarea {
+  border-radius: 8px;
+  }
+  .contact-form .btn {
+  width: 100%;
+  font-weight: bold;
+  }

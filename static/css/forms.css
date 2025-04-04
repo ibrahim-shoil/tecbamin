@@ -1,0 +1,44 @@
+/* ✅ ملف تنسيقات forms.css لتوحيد تنسيقات النماذج */
+form.contact-us-form,
+form.comment-form {
+background-color: #ffffff;
+border: 1px solid #ddd;
+border-radius: 1rem;
+padding: 2rem;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+max-width: 700px;
+margin: auto;
+transition: all 0.3s ease;
+}
+form.contact-us-form:hover,
+form.comment-form:hover {
+box-shadow: 0 0 15px rgba(0, 123, 255, 0.2);
+}
+form .form-label {
+font-weight: bold;
+color: #333;
+}
+form .form-control {
+border-radius: 0.5rem;
+border: 1px solid #ccc;
+transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+form .form-control:focus {
+border-color: #0d6efd;
+box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+form .btn-primary {
+border-radius: 0.5rem;
+padding: 0.6rem 1.5rem;
+font-weight: 500;
+transition: background-color 0.3s ease;
+}
+form .btn-primary:hover {
+background-color: #0b5ed7;
+}
+@media (max-width: 576px) {
+form.contact-us-form,
+form.comment-form {
+padding: 1rem;
+}
+}

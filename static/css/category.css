@@ -1,0 +1,76 @@
+/* ----------------------------- */
+/* ✅ Category Page Styles - category.css */
+/* ----------------------------- */
+.section-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+  display: inline-block;
+  padding-bottom: 0.3rem;
+  margin-bottom: 2rem;
+  }
+  .btn-group .btn {
+  font-size: 0.95rem;
+  padding: 0.4rem 0.9rem;
+  }
+  .article-card {
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.3s ease;
+  }
+  .article-card:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  }
+  .article-card .card-img-top {
+  height: 140px;
+  object-fit: cover;
+  background-color: #f0f0f0;
+  }
+  .article-card .card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  }
+  .article-card .badge {
+  font-size: 0.75rem;
+  padding: 0.3em 0.6em;
+  }
+  .article-card .card-title {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #222;
+  }
+  .article-card .card-title a {
+  color: #007bff;
+  text-decoration: none;
+  }
+  .article-card .card-title a:hover {
+  text-decoration: underline;
+  }
+  .article-card .card-text {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+  }
+  .article-card small.text-muted {
+  font-size: 0.8rem;
+  color: #888;
+  }
+  .pagination-container {
+  margin-top: 2.5rem;
+  }
+  .pagination .page-link {
+  border-radius: 0.4rem;
+  color: #007bff;
+  }
+  .pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  }

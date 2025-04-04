@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+{% endblock %}
+{% block title %}نتائج البحث - tecBamin{% endblock %}
+{% block content %}
+<h2 class="section-title text-center mb-4">
+  <i class="fas fa-search text-primary"></i> نتائج البحث عن: <span class="text-primary">"{{ query }}"</span>
+</h2>
+<p class="text-muted text-center mb-4">
+  <i class="fas fa-list-ol"></i> عدد النتائج: <span class="fw-bold">{{ results_count }}</span> |
+  <i class="fas fa-stopwatch"></i> زمن البحث: <span class="fw-bold">{{ search_time }}</span> ثانية
+</p>
+<form method="GET" id="search-filter-form" class="row row-cols-lg-auto g-3 align-items-center mb-4 justify-content-center">
+  <input type="hidden" name="q" value="{{ query }}">
+  <div class="col">
+    <label for="category" class="form-label">
+    <i class="fas fa-folder-open text-primary"></i> التصنيف:
+    </label>
+    <select name="category" id="category" class="form-select">
+      <option value="">كل التصنيفات</option>
+      {% for cat in categories %}
+      <option value="{{ cat }}" {% if cat == category_filter %}selected{% endif %}>{{ cat }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col">
+    <label for="sort" class="form-label">
+    <i class="fas fa-sort text-primary"></i> ترتيب حسب:
+    </label>
+    <select name="sort" id="sort" class="form-select">
+    <option value="newest" {% if sort_order == 'newest' %}selected{% endif %}>الأحدث</option>
+    <option value="views" {% if sort_order == 'views' %}selected{% endif %}>الأكثر مشاهدة</option>
+    </select>
+  </div>
+</form>
+{% if articles %}
+<div class="container">
+  <div class="row g-4" id="articles-container">
+    {% for item in articles %}
+    {% set article = item.article %}
+    {% set comment_count = item.comment_count %}
+    <div class="col-md-6 col-lg-4">
+      <div class="article-card h-100 border rounded shadow-sm">
+        <div class="card-img-top position-relative" style="height: 180px; overflow: hidden;">
+          {% if article.image_path %}
+          {% if article.image_path.startswith('http') %}
+          <img src="{{ article.image_path }}" alt="صورة المقال" class="w-100 h-100 object-fit-cover" loading="lazy">
+          {% else %}
+          <img src="{{ url_for('static', filename='uploads/' ~ article.image_path) }}" alt="صورة المقال" class="w-100 h-100 object-fit-cover" loading="lazy">
+          {% endif %}
+          {% else %}
+          <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center text-muted" style="font-size: 0.9rem;">
+            <i class="fas fa-image fs-2 me-2"></i> لا توجد صورة
+          </div>
+          {% endif %}
+        </div>
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge bg-primary">{{ article.category }}</span>
+            <small class="text-muted">
+            <i class="fas fa-eye"></i> {{ article.views }} &nbsp;|&nbsp;
+            <i class="fas fa-comments"></i> {{ comment_count }}
+            </small>
+          </div>
+          <h6 class="card-title">
+            <a href="{{ url_for('main.article_detail', slug=article.slug) }}" class="article-link text-dark text-decoration-none">
+            {{ article.title[:60] }}{% if article.title|length > 60 %}...{% endif %}
+            </a>
+          </h6>
+          <p class="card-text small mt-2">{{ article.content[:100]|striptags }}{% if article.content|length > 100 %}...{% endif %}</p>
+          <div class="mt-auto">
+            <small class="text-muted">
+            <i class="fas fa-clock"></i> {{ article.date_posted|to_egypt_time }}
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% if pagination and pagination.has_next %}
+<div class="text-center mt-5">
+  <button id="load-more-btn" class="btn btn-outline-primary px-4">
+  <i class="fas fa-plus-circle"></i> عرض المزيد
+  </button>
+</div>
+{% endif %}
+{% else %}
+<p class="text-muted text-center">
+  <i class="fas fa-exclamation-triangle text-danger"></i> لم يتم العثور على نتائج تطابق بحثك.
+</p>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script>
+  const form = document.getElementById("search-filter-form");
+  document.getElementById("category").addEventListener("change", () => form.submit());
+  document.getElementById("sort").addEventListener("change", () => form.submit());
+</script>
+<script>
+  let currentPage = 1;
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  const articlesContainer = document.getElementById('articles-container');
+  
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      currentPage += 1;
+      const url = new URL(window.location.href);
+      url.searchParams.set('page', currentPage);
+  
+      fetch(url, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+      .then(res => res.json())
+      .then(data => {
+        data.articles.forEach(article => {
+          let imageHTML = '';
+          if (article.image_path) {
+            const isExternal = article.image_path.startsWith('http');
+            const imageSrc = isExternal ? article.image_path : `/static/uploads/${article.image_path}`;
+            imageHTML = `<img src="${imageSrc}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="صورة المقال" loading="lazy">`;
+          } else {
+            imageHTML = `
+              <div class="w-100 bg-light d-flex align-items-center justify-content-center text-muted" style="height: 180px;">
+                <i class="bi bi-image fs-2 me-2"></i> لا توجد صورة
+              </div>
+            `;
+          }
+  
+          const cardHTML = `
+            <div class="col-md-6 col-lg-4">
+              <div class="article-card h-100 border rounded shadow-sm">
+                ${imageHTML}
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge bg-primary">${article.category}</span>
+                    <small class="text-muted">
+                      <i class="fa fa-eye"></i> ${article.views} &nbsp;|&nbsp;
+                      <i class="fa fa-comments"></i> ${article.comment_count}
+                    </small>
+                  </div>
+                  <h6 class="card-title">
+                    <a href="/article/${article.slug}" class="article-link text-dark text-decoration-none">
+                      ${article.title.length > 60 ? article.title.substring(0, 60) + '...' : article.title}
+                    </a>
+                  </h6>
+                  <p class="card-text small mt-2">${article.content.replace(/(<([^>]+)>)/gi, "").substring(0, 100)}...</p>
+                  <div class="mt-auto">
+                    <small class="text-muted"><i class="fa fa-clock"></i> ${article.date_posted}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+  
+          articlesContainer.insertAdjacentHTML('beforeend', cardHTML);
+        });
+  
+        if (!data.has_next) {
+          loadMoreBtn.style.display = 'none';
+        }
+      });
+    });
+  }
+</script>
+{% endblock %}

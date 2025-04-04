@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}403 - غير مصرح{% endblock %}
+
+{% block extra_styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/error_pages.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="error-container text-center">
+  <div class="error-box">
+    <i class="bi bi-shield-lock-fill display-1 text-warning mb-3"></i>
+    <h1 class="error-code">403</h1>
+    <h3 class="error-title">غير مصرح لك بالدخول</h3>
+    <p class="error-message">ليس لديك الصلاحية لعرض هذه الصفحة.</p>
+    <a href="{{ url_for('main.home') }}" class="btn btn-outline-primary mt-3">
+      العودة إلى الصفحة الرئيسية
+    </a>
+  </div>
+</div>
+{% endblock %}

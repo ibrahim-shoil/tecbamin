@@ -1,0 +1,49 @@
+/* ✅ search.css */
+.section-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #333;
+  }
+  .article-card {
+  transition: box-shadow 0.3s ease;
+  background-color: #fff;
+  }
+  .article-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+  .article-card img,
+  .article-card .card-img-top {
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
+  }
+  .article-card .card-body {
+  padding: 1rem;
+  }
+  .article-link {
+  color: #1a1a1a;
+  font-weight: 600;
+  text-decoration: none;
+  }
+  .article-link:hover {
+  color: #0d6efd;
+  }
+  .badge {
+  font-size: 0.75rem;
+  padding: 0.4em 0.6em;
+  }
+  .card-text {
+  font-size: 0.85rem;
+  color: #555;
+  }
+  #load-more-btn {
+  min-width: 200px;
+  }
+  .bg-light-placeholder {
+  background-color: #f8f9fa;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 0.9rem;
+  }
